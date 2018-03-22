@@ -28,8 +28,7 @@ introduced in the skeleton code below. For instance, you might want to
 add a "rec", or use a different argument list, or no argument list at
 all but binding to an anonymous function instead.) *)
 
-let inc _ =
-  failwith "inc not implemented" ;;
+let inc (intref : int ref) : unit = intref := !intref + 1 ;;
 
 (* Write a function named remember that returns the last string that
 it was called with. The first time it is called, it should return the
@@ -47,8 +46,11 @@ This is probably the least functional function ever written.
 As usual, you shouldn't feel beholden to how the definition is
 introduced in the skeleton code below. *)
 
-let remember _ = 
-  failwith "remember not implemented" ;;
+let oldstr = ref "" ;;
+
+let remember newstr =
+  let temp = !oldstr in 
+    oldstr := newstr; temp;;
 
 (*====================================================================
 Part 2: Gensym
@@ -90,8 +92,12 @@ Complete the implementation of gensym. As usual, you shouldn't feel
 beholden to how the definition is introduced in the skeleton code
 below. (We'll stop mentioning this now.) *)
 
-let gensym (s : string) : string = 
-  failwith "gensym not implemented" ;;
+let strint = ref 0 ;;
+
+let gensym (s : string) : string =
+  inc strint ;
+  let temp = !strint in
+    s ^ string_of_int temp ;;
 
 (*====================================================================
 Part 3: Appending mutable lists
